@@ -2062,7 +2062,7 @@ TilemapCollider2D:
   m_GameObject: {fileID: 909668612}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: d5029f48bf7fd7746a514c73ba158a93, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2134,7 +2134,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 938712747}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c3fd001713b385945b3a848225559e58, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2165,6 +2165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Visual: {fileID: 223243735}
   MoveForce: 50
+  JumpForce: 500
 --- !u!1 &1056826877
 GameObject:
   m_ObjectHideFlags: 0
@@ -3081,7 +3082,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1838912807}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 938712751}
+        m_MethodName: Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1838912807
 MonoBehaviour:
   m_ObjectHideFlags: 0
