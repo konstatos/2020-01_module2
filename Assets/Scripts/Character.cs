@@ -35,10 +35,24 @@ public class Character : MonoBehaviour
             rigidBody2D.AddForce(new Vector2(MoveForce, 0), ForceMode2D.Force);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.GetComponent<MovingPlatform>() != null)
+            transform.SetParent(collision.transform);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.GetComponent<MovingPlatform>() != null)
+            transform.SetParent(null);
+    }
+
     public void Jump()
     {
-        if (triggerDetector.InTrigger)
+        if (triggerDetector.InTrigger) {
             rigidBody2D.AddForce(new Vector2(0, JumpForce), ForceMode2D.Force);
+            transform.SetParent(null);
+        }
     }
 
     private void Update()
