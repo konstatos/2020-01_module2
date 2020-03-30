@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, ISaveable
 {
     public Transform Visual;
     public float MoveForce;
@@ -69,5 +69,17 @@ public class Character : MonoBehaviour
         Visual.localScale = scale;
 
         animator.SetFloat("speed", Mathf.Abs(vel));
+    }
+
+    void ISaveable.Save(GameState gameState)
+    {
+        gameState.playerState.visualDirection = visualDirection;
+        gameState.playerState.body.Init(rigidBody2D);
+    }
+
+    void ISaveable.Restore(GameState gameState)
+    {
+        visualDirection = gameState.playerState.visualDirection;
+        gameState.playerState.body.Apply(rigidBody2D);
     }
 }

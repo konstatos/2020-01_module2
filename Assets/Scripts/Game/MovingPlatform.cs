@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : MonoBehaviour, ISaveable
 {
     public Transform start;
     public Transform end;
@@ -31,5 +31,17 @@ public class MovingPlatform : MonoBehaviour
         }
 
         transform.position = Vector3.Lerp(start.position, end.position, current);
+    }
+
+    void ISaveable.Save(GameState gameState)
+    {
+        gameState.platformState.current = current;
+        gameState.platformState.dir = dir;
+    }
+
+    void ISaveable.Restore(GameState gameState)
+    {
+        current = gameState.platformState.current;
+        dir = gameState.platformState.dir;
     }
 }

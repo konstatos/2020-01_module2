@@ -1,15 +1,18 @@
 
 using UnityEngine;
+using Zenject;
 
 public class InitialUI : MonoBehaviour
 {
+    [Inject] ILevelManager levelManager;
+
     public void NewGame()
     {
-        LevelManager.Instance.NewGame();
+        levelManager.NewGame();
     }
 
     public void ContinueGame()
     {
-        LevelManager.Instance.ContinueGame();
+        levelManager.ContinueGame();
     }
 }
