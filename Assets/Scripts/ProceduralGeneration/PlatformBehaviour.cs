@@ -3,8 +3,10 @@
 
 public sealed class PlatformBehaviour : MonoBehaviour
 {
+    #pragma warning disable CS0649
     [SerializeField] private LevelPartSettings _levelPartSettings;
     [SerializeField] private Transform _pointSpawnAdditionalObject;
+    #pragma warning restore CS0649
     private bool _isGenerate;
 
     public float GetBorder()

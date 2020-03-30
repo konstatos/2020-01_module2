@@ -6,10 +6,12 @@ using Random = UnityEngine.Random;
     menuName = "Data/LevelSettings/LevelPartSettingsData")]
 public sealed class LevelPartSettings : ScriptableObject
 {
+    #pragma warning disable CS0649
     [SerializeField] [Range(1, 100)] private int _countPlatform;
     [SerializeField] private bool _isGenerateLastPlatform;
     [SerializeField] private PlatformData _firstPlatform;
     [SerializeField] private PlatformData[] _platforms;
+    #pragma warning restore CS0649
     private PlatformFactory _platformFactory;
     private AdditionalObjectFactory _additionalObjectFactory;
     private Vector3 _position;
