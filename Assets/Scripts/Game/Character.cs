@@ -1,38 +1,45 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class Character : MonoBehaviour, ISaveable
 {
+    public static readonly List<Character> AllCharacters = new List<Character>();
+
     public Transform Visual;
     public float MoveForce;
     public float JumpForce;
+    protected Rigidbody2D rigidBody2D;
+    private TriggerDetector triggerDetector;
+    private Animator animator;
+    private float visualDirection;
 
-    Rigidbody2D rigidBody2D;
-    TriggerDetector triggerDetector;
-    Animator animator;
-    float visualDirection;
+    public bool IsGrounded => transform.parent;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         visualDirection = 1.0f;
         rigidBody2D = GetComponent<Rigidbody2D>();
         triggerDetector = GetComponentInChildren<TriggerDetector>();
         animator = GetComponentInChildren<Animator>();
+        AllCharacters.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        AllCharacters.Remove(this);
     }
 
     public void MoveLeft()
     {
         //if (triggerDetector.InTrigger)
-            rigidBody2D.AddForce(new Vector2(-MoveForce, 0), ForceMode2D.Force);
+        rigidBody2D.AddForce(new Vector2(-MoveForce, 0), ForceMode2D.Force);
     }
 
     public void MoveRight()
     {
         //if (triggerDetector.InTrigger)
-            rigidBody2D.AddForce(new Vector2(MoveForce, 0), ForceMode2D.Force);
+        rigidBody2D.AddForce(new Vector2(MoveForce, 0), ForceMode2D.Force);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -49,22 +56,23 @@ public class Character : MonoBehaviour, ISaveable
 
     public void Jump()
     {
-        if (triggerDetector.InTrigger) {
+        if (triggerDetector.InTrigger)
+        {
             rigidBody2D.AddForce(new Vector2(0, JumpForce), ForceMode2D.Force);
             transform.SetParent(null);
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
-        float vel = rigidBody2D.velocity.x;
+        var vel = rigidBody2D.velocity.x;
 
         if (vel < -0.01f)
             visualDirection = -1.0f;
         else if (vel > 0.01f)
             visualDirection = 1.0f;
 
-        Vector3 scale = Visual.localScale;
+        var scale = Visual.localScale;
         scale.x = visualDirection;
         Visual.localScale = scale;
 
